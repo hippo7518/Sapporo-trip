@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>화장실 전우조 삿포로 4박5일 여행</title>
+    <title>화장실 전우조 삿포로 4박5일 여행 (패치 완료)</title>
     <style>
         /* Google Fonts Import */
         @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Black+Han+Sans&display=swap');
@@ -78,38 +78,38 @@
             margin-bottom: 3.5rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(40px); /* 등장 애니메이션만 유지 */
             border: 1px solid #eee;
-        }
-
-        /* 스크랩북 효과를 위한 카드 기울임 */
-        .day-card:nth-child(odd) {
-             transform: translateY(40px) rotate(-1.5deg);
-        }
-        .day-card:nth-child(even) {
-            transform: translateY(40px) rotate(1.5deg);
         }
         
         .day-card.visible {
             opacity: 1;
-        }
-        .day-card.visible:nth-child(odd) {
-            transform: translateY(0) rotate(-1.5deg);
-            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
-        }
-        .day-card.visible:nth-child(even) {
-            transform: translateY(0) rotate(1.5deg);
+            transform: translateY(0); /* 등장 애니메이션만 유지 */
             transition: opacity 0.8s ease-out, transform 0.6s ease-out;
         }
 
         .day-card:hover {
-            transform: translateY(-10px) rotate(0);
+            transform: translateY(-10px); /* 호버 시 위로 살짝 올라가는 효과 */
             box-shadow: 0 12px 30px rgba(0,0,0,0.12);
         }
 
         .day-card .image-wrapper {
-            padding: 1.5rem 1.5rem 0 1.5rem;
+            padding: 1.5rem;
+            transition: transform 0.4s ease; /* 이미지 회전 부드럽게 */
         }
+        
+        /* [수정됨] 이미지 래퍼를 홀/짝수 카드에 따라 회전시킵니다 */
+        .day-card:nth-child(odd) .image-wrapper {
+            transform: rotate(-2.5deg);
+        }
+        .day-card:nth-child(even) .image-wrapper {
+            transform: rotate(2.5deg);
+        }
+        /* [수정됨] 카드에 호버 시 이미지 회전을 0으로 만듭니다 */
+        .day-card:hover .image-wrapper {
+            transform: rotate(0);
+        }
+
         .day-card img {
             width: 100%;
             height: 280px;
@@ -121,7 +121,7 @@
         }
 
         .day-content {
-            padding: 2rem;
+            padding: 1rem 2rem 2rem 2rem; /* 이미지 패딩과 겹치지 않도록 상단 패딩 조절 */
         }
 
         .day-content h2 {
@@ -241,7 +241,7 @@
                 height: 200px;
             }
             .day-content {
-                padding: 1.5rem;
+                padding: 1rem 1.5rem 1.5rem 1.5rem;
             }
             .day-content h2 {
                 font-size: 1.8rem;
