@@ -6,15 +6,18 @@
     <title>화장실 전우조 삿포로 4박5일 여행</title>
     <style>
         /* Google Fonts Import */
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Black+Han+Sans&display=swap');
 
         /* Global Styles & Resets */
         :root {
-            --primary-color: #0067C0; /* Sapporo Blue */
-            --secondary-color: #FFFFFF;
-            --text-color: #333333;
-            --light-gray: #f4f4f9;
-            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --bg-color: #fcfaf5;
+            --card-bg-color: #ffffff;
+            --header-bg-color: #3d5a80;
+            --primary-text-color: #333333;
+            --accent-color: #a97c50; /* Muted Gold */
+            --shadow: 0 5px 20px rgba(0,0,0,0.08);
+            --font-main: 'Gowun Dodum', sans-serif;
+            --font-header: 'Black Han Sans', sans-serif;
         }
 
         * {
@@ -28,68 +31,93 @@
         }
 
         body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: var(--light-gray);
-            color: var(--text-color);
-            line-height: 1.7;
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23e8e5de" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            color: var(--primary-text-color);
+            line-height: 1.8;
         }
 
         /* Header */
         header {
-            background: linear-gradient(45deg, #0067c0, #004a8b);
-            color: var(--secondary-color);
+            background-color: var(--header-bg-color);
+            color: var(--card-bg-color);
             text-align: center;
             padding: 4rem 1rem;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
         }
 
         header h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
+            font-family: var(--font-header);
+            font-size: 3rem;
+            font-weight: 400; /* Black Han Sans는 기본이 bold */
             margin-bottom: 0.5rem;
+            letter-spacing: 2px;
         }
 
         header p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 400;
             opacity: 0.9;
         }
 
         /* Main Content Container */
         .container {
-            max-width: 900px;
-            margin: 2rem auto;
+            max-width: 800px;
+            margin: -3rem auto 2rem auto; /* 헤더와 겹치도록 수정 */
             padding: 0 1rem;
+            position: relative;
+            z-index: 10;
         }
         
         /* Itinerary Card Styling */
         .day-card {
-            background-color: var(--secondary-color);
-            border-radius: 12px;
+            background-color: var(--card-bg-color);
+            border-radius: 8px;
             box-shadow: var(--shadow);
-            margin-bottom: 2.5rem;
-            overflow: hidden;
+            margin-bottom: 3.5rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
+            border: 1px solid #eee;
+        }
+
+        /* 스크랩북 효과를 위한 카드 기울임 */
+        .day-card:nth-child(odd) {
+             transform: translateY(40px) rotate(-1.5deg);
+        }
+        .day-card:nth-child(even) {
+            transform: translateY(40px) rotate(1.5deg);
         }
         
         .day-card.visible {
             opacity: 1;
-            transform: translateY(0);
+        }
+        .day-card.visible:nth-child(odd) {
+            transform: translateY(0) rotate(-1.5deg);
+            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
+        }
+        .day-card.visible:nth-child(even) {
+            transform: translateY(0) rotate(1.5deg);
             transition: opacity 0.8s ease-out, transform 0.6s ease-out;
         }
 
         .day-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(-10px) rotate(0);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
         }
 
+        .day-card .image-wrapper {
+            padding: 1.5rem 1.5rem 0 1.5rem;
+        }
         .day-card img {
             width: 100%;
             height: 280px;
             object-fit: cover;
-            border-bottom: 1px solid #eee;
-            background-color: #e9ecef; /* 이미지가 없을 때 보일 배경색 */
+            border: 10px solid #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            background-color: #e9ecef;
         }
 
         .day-content {
@@ -97,18 +125,21 @@
         }
 
         .day-content h2 {
-            font-size: 2rem;
-            color: var(--primary-color);
+            font-family: var(--font-header);
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: var(--header-bg-color);
             margin-bottom: 1rem;
-            border-left: 5px solid var(--primary-color);
-            padding-left: 10px;
+            text-align: center;
         }
 
         .day-content .summary {
             font-size: 1.1rem;
-            font-weight: 500;
+            text-align: center;
             color: #555;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px dashed #e0e0e0;
         }
 
         .day-content ul {
@@ -116,42 +147,46 @@
         }
 
         .day-content li {
-            margin-bottom: 1rem;
-            padding-left: 30px;
+            margin-bottom: 1.2rem;
+            padding-left: 35px;
             position: relative;
         }
 
         .day-content li::before {
-            content: '✔️';
+            content: '✈️'; /* 아이콘 변경 */
             position: absolute;
             left: 0;
-            top: 0;
-            color: var(--primary-color);
-            font-size: 1.2em;
+            top: -2px;
+            font-size: 1.3em;
         }
 
         .day-content strong {
             font-weight: 700;
-            color: #222;
+            color: var(--primary-text-color);
+            background: linear-gradient(to top, #f3e6d8 50%, transparent 50%);
         }
         
         .day-content a {
-            color: var(--primary-color);
+            color: var(--accent-color);
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
+            font-weight: 700;
+            border-bottom: 1px solid var(--accent-color);
+            transition: all 0.3s;
         }
 
         .day-content a:hover {
-            color: #004a8b;
-            text-decoration: underline;
+            color: #fff;
+            background-color: var(--accent-color);
+            border-bottom-color: transparent;
         }
         
         /* Footnote Styles */
         .footnotes {
+            background-color: #f9f9f9;
             border-top: 1px solid #e0e0e0;
             margin-top: 2rem;
-            padding-top: 1.5rem;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
             font-size: 0.9rem;
             color: #666;
         }
@@ -161,6 +196,7 @@
         }
         .footnote-item sup {
             font-size: 0.8em;
+            color: var(--accent-color);
         }
         .footnote-ref {
             font-size: 0.8em;
@@ -169,7 +205,8 @@
         }
         sup a, .footnote-item a {
             text-decoration: none;
-            color: var(--primary-color);
+            color: var(--accent-color);
+            font-weight: bold;
         }
         sup a:hover, .footnote-item a:hover {
             text-decoration: underline;
@@ -182,19 +219,20 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 2rem;
-            background-color: #333;
+            padding: 2.5rem;
+            background-color: #4a4a4a;
             color: #fff;
             margin-top: 3rem;
+            font-size: 1rem;
         }
         
         /* Responsive Design */
         @media (max-width: 768px) {
             header {
-                padding: 3rem 1rem;
+                padding: 3rem 1rem 4rem 1rem;
             }
             header h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             header p {
                 font-size: 1rem;
@@ -206,7 +244,7 @@
                 padding: 1.5rem;
             }
             .day-content h2 {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -214,14 +252,16 @@
 <body>
 
     <header>
-        <h1>화장실 전우조 삿포로 4박5일 여행</h1>
+        <h1>화장실 전우조 삿포로 4박5일</h1>
         <p>made by 이준서(infp인데 j가 49%인)</p>
     </header>
 
     <main class="container">
 
         <article class="day-card">
-            <img src="images (37).jpeg" alt="스스키노 또는 다누키코지 거리">
+            <div class="image-wrapper">
+                <img src="images (37).jpeg" alt="스스키노 또는 다누키코지 거리">
+            </div>
             <div class="day-content">
                 <h2>Day 1: 삿포로 도착 & 스스키노의 밤</h2>
                 <p class="summary">설레는 첫날, 홋카이도의 심장 삿포로에 도착해 활기찬 밤을 맞이합니다.</p>
@@ -239,7 +279,9 @@
         </article>
 
         <article class="day-card">
-            <img src="10040_4_l.jpg" alt="오타루 운하의 야경">
+            <div class="image-wrapper">
+                <img src="10040_4_l.jpg" alt="오타루 운하의 야경">
+            </div>
             <div class="day-content">
                 <h2>Day 2: 낭만의 도시, 오타루</h2>
                 <p class="summary">삿포로 근교의 작은 항구 도시, 오타루에서 아기자기한 상점과 운하의 낭만을 즐기는 하루.</p>
@@ -253,7 +295,9 @@
         </article>
 
         <article class="day-card">
-            <img src="moiwa-yakei-1200x600-1.jpg" alt="모이와야마 전망대에서 본 삿포로 야경">
+            <div class="image-wrapper">
+                <img src="moiwa-yakei-1200x600-1.jpg" alt="모이와야마 전망대에서 본 삿포로 야경">
+            </div>
             <div class="day-content">
                 <h2>Day 3: 삿포로 시내 완전 정복</h2>
                 <p class="summary">효율적인 동선으로 삿포로의 다채로운 매력을 구석구석 탐방하는 날!</p>
@@ -270,7 +314,9 @@
         </article>
 
         <article class="day-card">
-            <img src="조잔케이료칸-썸네일-900x554.jpg" alt="조잔케이 온천 료칸의 설경">
+            <div class="image-wrapper">
+                <img src="조잔케이료칸-썸네일-900x554.jpg" alt="조잔케이 온천 료칸의 설경">
+            </div>
             <div class="day-content">
                 <h2>Day 4: 쇼핑 & 힐링 료캉스</h2>
                 <p class="summary">도시에서의 마지막 쇼핑을 즐기고, 온천 마을로 이동해 여행의 피로를 녹이는 완벽한 휴식.</p>
@@ -287,7 +333,9 @@
         </article>
 
         <article class="day-card">
-            <img src="istockphoto-487285850-612x612.jpg" alt="신치토세 공항 내부 모습">
+            <div class="image-wrapper">
+                <img src="istockphoto-487285850-612x612.jpg" alt="신치토세 공항 내부 모습">
+            </div>
             <div class="day-content">
                 <h2>Day 5: 여유로운 마무리와 귀국</h2>
                 <p class="summary">료칸에서의 아쉬운 마지막 아침을 보내고, 즐거웠던 추억을 안고 공항으로 향합니다.</p>
@@ -330,7 +378,7 @@
                     <li><strong>오타루 운하 크루즈:</strong> 1,800엔 (야간 기준, 약 16,000원)</li>
                     <li><strong>모이와야마 케이블카:</strong> 2,100엔 (왕복 세트권, 약 19,000원)</li>
                     <li><strong>쇼핑 및 기타 비용:</strong> 각자 정하기!</li>
-                    <hr style="margin-top:20px; margin-bottom:20px; border: 1px solid #eee;">
+                    <hr style="margin-top:20px; margin-bottom:20px; border: 0; border-top: 1px solid #eee;">
                     <li><strong>쇼핑 제외 총 예상 경비: 약 1,057,000 ~ 1,307,000원</strong></li>
                 </ul>
             </div>
